@@ -1,42 +1,43 @@
 # 📖 Cloud Run Guestbook Application (`agy_guestbook`)
 
-A production-tested, containerized Guestbook web service designed, planned, implemented, tested, and deployed to **Google Cloud Run** using **Antigravity (AGY)** and its agentic skill workflows.
+A production-tested, containerized Guestbook web service designed, planned, implemented, tested, deployed to **Google Cloud Run**, and cleanly decommissioned using **Antigravity (AGY)** and its agentic skill workflows.
 
-[![Cloud Run Service](https://img.shields.io/badge/Google%20Cloud-Cloud%20Run-4285F4?logo=google-cloud&logoColor=white)](https://guestbook-app-4nsi4ij2rq-uw.a.run.app)
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
 [![Framework](https://img.shields.io/badge/Framework-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
 [![Tests](https://img.shields.io/badge/tests-pytest%20(6%20passed)-brightgreen.svg)]()
 [![Security](https://img.shields.io/badge/security-TLS%201.3%20%7C%20CSP%20%7C%20Non--Root-success.svg)]()
+[![Lifecycle Status](https://img.shields.io/badge/lifecycle-Cleaned%20Up%20%2F%20Decommissioned-orange.svg)]()
 
 ---
 
-## 🌐 Live Production Deployment
+## 🧭 Project Status: Decommissioned via `cleanup` Skill
 
-* **Primary Application URL:** [https://guestbook-app-4nsi4ij2rq-uw.a.run.app](https://guestbook-app-4nsi4ij2rq-uw.a.run.app)
-* **Alternative Domain:** [https://guestbook-app-483486086533.us-west1.run.app](https://guestbook-app-483486086533.us-west1.run.app)
-* **Liveness & Health Probe:** [https://guestbook-app-4nsi4ij2rq-uw.a.run.app/health](https://guestbook-app-4nsi4ij2rq-uw.a.run.app/health)
-* **JSON REST API:** [https://guestbook-app-4nsi4ij2rq-uw.a.run.app/api/v1/entries](https://guestbook-app-4nsi4ij2rq-uw.a.run.app/api/v1/entries)
+This project has completed its full lifecycle demonstration:
+* The live Cloud Run service (`guestbook-app`) was successfully deployed, audited, and subsequently **safely deleted**.
+* The application source and runtime files were cleaned up following test verification.
+* **All design artifacts, test reports, security scorecards, operational logs, and custom skills are fully preserved** in this repository and history.
 
 ---
 
-## 🛠️ Complete Project Walkthrough: Steps Taken
+## 🛠️ Complete Project Walkthrough: Steps & Skills Executed
 
-This project was built from scratch using a disciplined agentic development lifecycle driven by custom agent skills:
+This project demonstrated an end-to-end disciplined agentic development lifecycle driven by specialized agent skills:
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Requirements Interview<br/>(grill-me-to-specification)"] --> B["Implementation Planning<br/>(specification-to-plan)"]
     B --> C["Full Stack Build<br/>(FastAPI + SQLite + UI)"]
     C --> D["Pre-Deploy Verification<br/>(pre-deploy-test-application)"]
     D --> E["Cloud Run Deployment<br/>(gcloud run deploy)"]
     E --> F["Post-Deploy Smoke Test<br/>(post-deploy-test-application)"]
     F --> G["Security Hardening Audit<br/>(post-deploy-test-security)"]
+    G --> H["Controlled Teardown<br/>(cleanup)"]
 ```
 
 ### 1. Requirements Interview (`grill-me-to-specification`)
-- Prompted and aligned on key infrastructure decisions:
+- Conducted an interactive requirements interview to align on architecture and constraints:
   - **Service Name:** `guestbook-app`
-  - **Cloud Run Region:** `us-west1`
+  - **Cloud Run Region:** `us-west1` (Project: `hardy-messenger-510318-u4`)
   - **Tech Stack:** Python 3.12, FastAPI, Jinja2 templates, modern CSS.
   - **Storage:** Local SQLite in WAL mode (`/app/data/guestbook.db`).
   - **Ingress:** Public unauthenticated (`--allow-unauthenticated`).
@@ -94,76 +95,43 @@ flowchart LR
 - Probed sensitive administrative and environment endpoints (`/.env`, `/.git/`, `/admin`) to verify they return clean 404 responses without stack traces or information leakage.
 - **Emitted Document:** [`POST-SECURITY.md`](POST-SECURITY.md) (**Verdict: APPROVED / SECURE**).
 
-### 8. Logging, Future Agent Runbook & Version Control
-- Emitted full chronological tool call ledger in [`LOG.md`](LOG.md).
-- Authored [`AGENTS.md`](AGENTS.md) as a technical guide for future AI coding agents.
-- Initialized local Git repository, configured author details (`Dustin Garland <dgarland@pdx.edu>`), and pushed upstream to **[https://github.com/ddgarland/agy_guestbook](https://github.com/ddgarland/agy_guestbook)**.
+### 8. Teardown & Resource Cleanup (`cleanup`)
+- Invoked the custom `cleanup` skill to safely decommission the cloud footprint and workspace:
+  - Prompted for and obtained explicit user approval before each destructive operation.
+  - Terminated the deployed Cloud Run service (`gcloud run services delete guestbook-app --region us-west1`).
+  - Reset local databases and cleaned up application source code files.
+  - Strictly preserved all user-defined agent skills and documentation artifacts.
 
 ---
 
-## 📂 Repository File Map
+## 📂 Repository Artifacts & Documentation Map
 
 ```
-├── Dockerfile                  # Production container definition (Python 3.12-slim, non-root user)
-├── .dockerignore               # Ignores .venv, tests, git, cache, and db files
-├── .gitignore                  # Git exclusions (.venv, *.db, cache)
-├── requirements.txt            # FastAPI, Uvicorn, Jinja2, Pydantic, Pytest, HTTPX
-├── app/
-│   ├── __init__.py
-│   ├── main.py                 # FastAPI application, route handlers, security middleware
-│   ├── models.py               # SQLite connection, WAL mode, Pydantic schemas, CRUD
-│   ├── templates/
-│   │   └── index.html          # Jinja2 template with responsive UI & form feedback
-│   └── static/
-│       └── style.css           # Clean modern styles (responsive desktop & mobile)
-├── tests/
-│   ├── __init__.py
-│   └── test_app.py             # Pytest async test suite (unit, integration, XSS sanitization)
 ├── SPECIFICATION.md            # Technical specification & architectural trade-offs
 ├── PLAN.md                     # Phased implementation & verification plan
 ├── PRE-TEST.md                 # Pre-deployment verification audit (all 6 suites passed)
 ├── POST-TEST.md                # Post-deployment live smoke & probe verification (Healthy)
 ├── POST-SECURITY.md            # Post-deployment security audit & header scorecard (Secure)
 ├── LOG.md                      # Chronological execution log of all skills, tools & steps
-├── AGENTS.md                   # Operational guide for future AI agents
-└── README.md                   # This project overview and documentation
+├── AGENTS.md                   # Operational guide & architectural blueprint for future AI agents
+├── .gitignore                  # Git exclusions (.venv, *.db, cache)
+└── README.md                   # Complete project summary & lifecycle guide
 ```
 
 ---
 
-## 💻 Local Development & Testing
+## 🤖 Defined Skills Reference
 
-### 1. Setup Virtual Environment
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+The following custom skills were defined, installed, and executed during this project:
 
-### 2. Run Test Suite
-```bash
-pytest -v tests/
-```
-
-### 3. Run Application Locally
-```bash
-uvicorn app.main:app --host 127.0.0.1 --port 8080 --reload
-```
-Open [http://127.0.0.1:8080](http://127.0.0.1:8080) in your browser.
-
----
-
-## 🚢 Redeploying to Google Cloud Run
-
-To deploy updates or a new revision:
-```bash
-gcloud run deploy guestbook-app \
-    --source . \
-    --region us-west1 \
-    --project hardy-messenger-510318-u4 \
-    --allow-unauthenticated \
-    --quiet
-```
+| Skill | Purpose |
+| :--- | :--- |
+| **`grill-me-to-specification`** | Conducts adversarial requirements interviews and emits `SPECIFICATION.md`. |
+| **`specification-to-plan`** | Analyzes specifications and emits a phased, actionable checklist in `PLAN.md`. |
+| **`pre-deploy-test-application`** | Authors and runs automated test suites (pytest), emitting results to `PRE-TEST.md`. |
+| **`post-deploy-test-application`** | Executes live synthetic probes and journeys on deployed services, emitting `POST-TEST.md`. |
+| **`post-deploy-test-security`** | Audits TLS, security headers, and endpoint protection, emitting `POST-SECURITY.md`. |
+| **`cleanup`** | Deletes cloud services and resets workspaces with step-by-step user confirmation while preserving skills. |
 
 ---
 
